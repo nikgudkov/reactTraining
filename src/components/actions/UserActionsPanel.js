@@ -1,13 +1,20 @@
 import React from 'react';
 import './userActionsPanel.css'
-import {FaPlus, FaPencilAlt, FaTimes} from 'react-icons/fa';
+import PropTypes from 'prop-types'
+import {FaPencilAlt, FaPlus, FaTimes} from 'react-icons/fa';
 
 class UserActionsPanel extends React.Component {
+    
+    changeToAddFolder = () => {
+        this.props.history.push("add_folder")
+    }
+
     render() {
         return (
             <div className="actions-panel">
+
                 <div>
-                    <FaPlus size={40}/>
+                    <FaPlus size={40} onClick={this.changeToAddFolder}/>
                     <div>Add</div>
                 </div>
 
@@ -24,5 +31,10 @@ class UserActionsPanel extends React.Component {
         );
     }
 }
+
+UserActionsPanel.propTypes = {
+    history: PropTypes.object.isRequired,
+}
+
 
 export default UserActionsPanel;

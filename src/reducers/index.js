@@ -1,4 +1,5 @@
 import {combineReducers} from "redux";
-import folder from "./folderReducer";
+import foldersReducer from "./foldersReducer";
+import addFolderReducer from "./addFolderReducer"
 
-export default combineReducers({folder,});
+export default combineReducers({folders: foldersReducer, addFolder: addFolderReducer,});
