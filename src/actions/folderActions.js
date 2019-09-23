@@ -1,4 +1,4 @@
-import {getFolders} from "../components/api";
+import {getFolders} from "../api/api";
 
 export const REQUEST_FOLDERS = 'REQUEST_FOLDERS'
 

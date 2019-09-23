@@ -12,21 +12,22 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
 
-                    <div className="container">
+                    <div className="container manager-panel">
+                        <p className="row border-bottom">Manager</p>
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-md-1">
                                 <UserActionsPanel/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-md-5">
                                 <FoldersPanel/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-md-6">
                                 <SearchPanel/>
                                 <FilesPanel/>
                             </div>
                         </div>
                     </div>
-                    
+
                 </header>
             </div>
         )

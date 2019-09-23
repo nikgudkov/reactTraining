@@ -3,9 +3,10 @@ import React from 'react';
 class SearchPanel extends React.Component {
     render() {
         return (
-            
-            //TODO for each
-            <input/>
+
+            <div className="input-sm col-sm-12">
+                <input className="input-sm col-sm-12"/>
+            </div>
         );
     }
 }

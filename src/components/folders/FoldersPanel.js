@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import './folders.css';
 import Folder from "./Folder";
 import {fetchFolders} from "../../actions/folderActions";
 
 
 class FoldersPanel extends React.Component {
-    
+
 
     handleGetFolders = () => {
         this.props.fetchFolders();
@@ -21,7 +22,7 @@ class FoldersPanel extends React.Component {
         const folders = this.props.folders;
         console.log(folders)
         return (
-            <div className="row">
+            <div className="folders-panel border">
                 <div>
                     <ul>
                         {folders.map((folder) =>
