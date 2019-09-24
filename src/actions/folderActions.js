@@ -51,11 +51,6 @@ const mapFolders = (data) => {
             rootFolders.push(folderDTO)
         }
     })
-    console.log({
-        folders: folders,
-        childrenMap: childrenMap,
-        rootFolders
-    })
     return {
         folders,
         childrenMap,
@@ -74,10 +69,10 @@ export function createFolderStart() {
 
 export const RECEIVE_ADD_FOLDER = 'RECEIVE_ADD_FOLDER'
 
-export function receiveCreateFolders(result) {
+export function receiveCreateFolders(folder) {
     return {
         type: RECEIVE_ADD_FOLDER,
-        data: result
+        folder: folder
     }
 }
 

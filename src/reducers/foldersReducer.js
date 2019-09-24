@@ -1,4 +1,4 @@
-import {RECEIVE_FOLDERS, REQUEST_FOLDERS} from "../actions/folderActions";
+import {RECEIVE_ADD_FOLDER, RECEIVE_FOLDERS, REQUEST_FOLDERS} from "../actions/folderActions";
 
 const initialState = {
     folders: {},
@@ -25,6 +25,13 @@ export default function (state = initialState, action) {
                 rootFolders: action.rootFolders,
                 isFetching: false
             })
+        }
+        case RECEIVE_ADD_FOLDER: {
+            let folder = action.folder;
+            state.childrenMap[folder.parentId].push(folder)
+            state.folders[folder.id] = folder
+
+            return state;
         }
         default:
             return state;
