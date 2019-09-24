@@ -6,12 +6,14 @@ import thunk from 'redux-thunk';
 import Root from './components/Root';
 import combineReducers from './reducers';
 import * as serviceWorker from './serviceWorker';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const store = createStore(
     combineReducers,
-    applyMiddleware(
-        thunk, // lets us dispatch() functions
-    )
+    composeWithDevTools(
+        applyMiddleware(
+            thunk, // lets us dispatch() functions
+        ))
 )
 
 const rootEl = document.getElementById('root');

@@ -4,3 +4,7 @@
     min-height: 600px;
     padding: 20px;
 }
+
+.folder-children-padding {
+    padding-left: 40px;
+}

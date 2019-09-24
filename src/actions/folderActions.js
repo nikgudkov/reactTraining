@@ -1,4 +1,5 @@
 import {createFolderRequest, getFoldersRequest} from "../api/api";
+import {FolderDTO} from "../dto/FolderDTO";
 
 export const REQUEST_FOLDERS = 'REQUEST_FOLDERS'
 
@@ -10,23 +11,56 @@ export function requestFolders() {
 
 export const RECEIVE_FOLDERS = 'RECEIVE_FOLDERS'
 
-export function receiveFolders(folders) {
+export function receiveFolders(data) {
     return {
         type: RECEIVE_FOLDERS,
-        data: folders
+        folders: data.folders,
+        childrenMap: data.childrenMap,
+        rootFolders: data.rootFolders
     }
 }
 
 export const fetchFolders = () => (dispatch) => {
-    console.log(dispatch)
     dispatch(requestFolders())
     return getFoldersRequest()
         .then(
             response => {
-                dispatch(receiveFolders(response.data))
+                dispatch(receiveFolders(mapFolders(response.data)))
             },
             error => console.log(error)
         )
+}
+
+const mapFolders = (data) => {
+    let folders = new Map();
+    let childrenMap = new Map();
+    let rootFolders = [];
+    data.forEach((folder) => {
+        let folderDTO = new FolderDTO(folder.id, folder.name, folder.parentId);
+        let parentId = folderDTO.parentId;
+        folders.set(folderDTO.id, folderDTO)
+        if (parentId) {
+            if (childrenMap.has(parentId)) {
+                childrenMap.get(parentId).push(folderDTO)
+            } else {
+                let childFolders = [];
+                childFolders.push(folderDTO)
+                childrenMap.set(parentId, childFolders)
+            }
+        } else {
+            rootFolders.push(folderDTO)
+        }
+    })
+    console.log({
+        folders: folders,
+        childrenMap: childrenMap,
+        rootFolders
+    })
+    return {
+        folders,
+        childrenMap,
+        rootFolders
+    };
 }
 
 
@@ -48,7 +82,6 @@ export function receiveCreateFolders(result) {
 }
 
 export const createFolder = (parentId, name) => (dispatch) => {
-    console.log(dispatch)
     dispatch(createFolderStart())
     return createFolderRequest(parentId, name)
         .then(

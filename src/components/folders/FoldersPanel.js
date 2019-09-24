@@ -19,12 +19,12 @@ class FoldersPanel extends React.Component {
     }
 
     render() {
-        const folders = this.props.folders;
+        const rootFolders = this.props.rootFolders;
         return (
             <div className="folders-panel border">
                 <div>
                     <ul>
-                        {folders.map((folder) =>
+                        {rootFolders.map((folder) =>
                             <Folder key={folder.id}
                                     folder={folder}/>
                         )}
@@ -36,7 +36,7 @@ class FoldersPanel extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    folders: state.folders.folders
+    rootFolders: state.folders.rootFolders
 })
 
 export default withRouter(
