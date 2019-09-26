@@ -1,29 +1,21 @@
 import React from 'react';
 import {FaFolder, FaFolderOpen} from "react-icons/fa";
 import {connect} from "react-redux";
+import {switchExpandFolder} from "../../actions/folderActions";
 
 class Folder extends React.Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            folder: this.props.folder,
-            expanded: this.props.folder.expanded
-        }
-    }
-
+    
     onFolderExpand = () => {
-        this.setState({expanded: !this.state.expanded})
-    }
+        this.props.switchExpandFolder(this.props.folder.id, this.props.folder.parentId);
+    };
 
     render() {
-        const {id, name} = this.state.folder;
-        const {expanded} = this.state;
+        const {id, name, expanded} = this.props.folder;
         const {childrenMap} = this.props;
         let childFolders = [];
         let folderIcon;
         if (expanded) {
-            folderIcon = <FaFolderOpen onClick={this.onFolderExpand}/>
+            folderIcon = <FaFolderOpen onClick={this.onFolderExpand}/>;
             childFolders = childrenMap[id] || [];
         } else {
             folderIcon = <FaFolder onClick={this.onFolderExpand}/>
@@ -34,8 +26,9 @@ class Folder extends React.Component {
                     {folderIcon} {name}
                     {childFolders.map((folder) =>
                         <div className="folder-children-padding" key={folder.id}>
-                        <Folder key={folder.id}
-                                folder={folder} childrenMap={childrenMap}/>
+                            <Folder key={folder.id} switchExpandFolder={this.props.switchExpandFolder}
+                                    expanded={folder.expanded}
+                                    folder={folder} childrenMap={childrenMap}/>
                         </div>
                     )}
                 </div>
@@ -46,6 +39,6 @@ class Folder extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     childrenMap: state.folders.childrenMap
-})
+});
 
-export default connect(mapStateToProps)(Folder)
+export default connect(mapStateToProps, {switchExpandFolder})(Folder)

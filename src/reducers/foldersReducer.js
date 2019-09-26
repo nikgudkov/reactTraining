@@ -1,7 +1,6 @@
-import {RECEIVE_ADD_FOLDER, RECEIVE_FOLDERS, REQUEST_FOLDERS} from "../actions/folderActions";
+import {EXPAND_FOLDER, RECEIVE_ADD_FOLDER, RECEIVE_FOLDERS, REQUEST_FOLDERS} from "../actions/folderActions";
 
 const initialState = {
-    folders: {},
     childrenMap: {},
     rootFolders: [],
     isFetching: false
@@ -15,12 +14,10 @@ export default function (state = initialState, action) {
             })
         }
         case RECEIVE_FOLDERS: {
-            // TODO check it
-            if (Object.keys(state.folders).length) {
+            if (Object.keys(state.rootFolders).length) {
                 return state;
             }
             return Object.assign({}, {
-                folders: mapToObject(action.folders),
                 childrenMap: mapToObject(action.childrenMap),
                 rootFolders: action.rootFolders,
                 isFetching: false
@@ -28,10 +25,39 @@ export default function (state = initialState, action) {
         }
         case RECEIVE_ADD_FOLDER: {
             let folder = action.folder;
-            state.childrenMap[folder.parentId].push(folder)
-            state.folders[folder.id] = folder
-
+            let children = state.childrenMap[folder.parentId];
+            if (!children) {
+                children = [];
+                state.childrenMap[folder.parentId] = children;
+            }
+            children.push(folder);
             return state;
+        }
+        case EXPAND_FOLDER: {
+            let folderId = action.folderId;
+            if (!action.parentId) {
+                for (let i = 0; i < state.rootFolders.length; i++) {
+                    if (state.rootFolders[i].id === folderId) {
+                        const rootFoldersModified = Array.from(state.rootFolders);
+                        rootFoldersModified[i].expanded = !rootFoldersModified[i].expanded;
+                        return Object.assign({}, state, {
+                            rootFolders: rootFoldersModified
+                        });
+                    }
+                }
+            }
+            let childrenMapModified = {};
+            for (let i in state.childrenMap) {
+                childrenMapModified[i] = state.childrenMap[i];
+            }
+            state.childrenMap[action.parentId].forEach((folder) => {
+                if (folder.id === folderId) {
+                    return folder.expanded = !folder.expanded;
+                }
+            });
+            return Object.assign({}, state, {
+                childrenMap: childrenMapModified
+            });
         }
         default:
             return state;

@@ -25,7 +25,7 @@ class FoldersPanel extends React.Component {
                 <div>
                     <ul>
                         {rootFolders.map((folder) =>
-                            <Folder key={folder.id}
+                            <Folder key={folder.id} expanded={folder.expanded}
                                     folder={folder}/>
                         )}
                     </ul>
