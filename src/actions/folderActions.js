@@ -1,7 +1,7 @@
 import {createFolderRequest, getFoldersRequest} from "../api/api";
 import {FolderDTO} from "../dto/FolderDTO";
 
-export const REQUEST_FOLDERS = 'REQUEST_FOLDERS'
+export const REQUEST_FOLDERS = 'REQUEST_FOLDERS';
 
 export function requestFolders() {
     return {
@@ -65,7 +65,7 @@ export function createFolderStart() {
 
 export const RECEIVE_ADD_FOLDER = 'RECEIVE_ADD_FOLDER';
 
-export function receiveCreateFolders(folder) {
+export function receiveCreateFolder(folder) {
     return {
         type: RECEIVE_ADD_FOLDER,
         folder: folder
@@ -77,7 +77,7 @@ export const createFolder = (parentId, name) => (dispatch) => {
     return createFolderRequest(parentId, name)
         .then(
             response => {
-                dispatch(receiveCreateFolders(response.data))
+                dispatch(receiveCreateFolder(response.data))
             },
             error => console.log(error)
         )

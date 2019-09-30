@@ -4,9 +4,13 @@ import PropTypes from 'prop-types'
 import {FaPencilAlt, FaPlus, FaTimes} from 'react-icons/fa';
 
 class UserActionsPanel extends React.Component {
-    
+
     changeToAddFolder = () => {
         this.props.history.push("add_folder")
+    }
+
+    changeToAddFile = () => {
+        this.props.history.push("add_file")
     }
 
     render() {
@@ -19,7 +23,7 @@ class UserActionsPanel extends React.Component {
                 </div>
 
                 <div>
-                    <FaPencilAlt size={40}/>
+                    <FaPencilAlt size={40} onClick={this.changeToAddFile}/>
                     <div>Add</div>
                 </div>
 

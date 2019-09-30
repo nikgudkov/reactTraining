@@ -37,7 +37,7 @@ class FoldersPanel extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     rootFolders: state.folders.rootFolders
-})
+});
 
 export default withRouter(
     connect(mapStateToProps,

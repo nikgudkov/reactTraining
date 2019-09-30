@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import {Route} from 'react-router-dom'
 import App from "./App";
 import AddFolderPanel from "./actions/AddFolderPanel";
+import AddFilePanel from "./actions/AddFilePanel";
 
 const Root = ({store}) => (
     <Provider store={store}>
@@ -18,6 +19,7 @@ const Root = ({store}) => (
 
                         <Route exact path="/" component={App}/>
                         <Route path="/add_folder" component={AddFolderPanel}/>
+                        <Route path="/add_file" component={AddFilePanel}/>
 
                     </div>
 
