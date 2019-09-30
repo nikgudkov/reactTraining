@@ -3,7 +3,7 @@ import ReactAutocomplete from 'react-autocomplete';
 
 class SearchPanel extends React.Component {
 
-    /*constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             value: ''
@@ -36,7 +36,7 @@ class SearchPanel extends React.Component {
                 />
             </div>
         );
-    }*/
+    }
 
 
 }
